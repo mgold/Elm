@@ -36,9 +36,12 @@ Elm.Native.Http.make = function(elm) {
 
         request.onreadystatechange = function(e) {
             if (request.readyState === 4) {
+                var parsed = req.parse(request.responseText);
                 response.value = (request.status >= 200 && request.status < 300 ?
-                                  { ctor:'Success', _0:request.responseText } :
-                                  { ctor:'Failure', _0:request.status, _1:request.statusText });
+                    (parsed.ctor === 'Just' ?
+                          { ctor:'Success', _0:parsed._0 } :
+                          { ctor:'Failure', _0:{ctor:'NoConversion', _0:request.statusText }}) :
+                    { ctor:'Failure', _0: {ctor:'Http', _0:request.status, _1:request.statusText }});
                 setTimeout(function() { updateQueue(queue,responses); }, 0);
             }
         };
