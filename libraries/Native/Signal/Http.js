@@ -41,7 +41,7 @@ Elm.Native.Http.make = function(elm) {
                     (parsed.ctor === 'Just' ?
                           { ctor:'Success', _0:parsed._0 } :
                           { ctor:'Failure', _0:{ctor:'NoConversion', _0:request.statusText }}) :
-                    { ctor:'Failure', _0: {ctor:'Http', _0:request.status, _1:request.statusText }});
+                    { ctor:'Failure', _0: {ctor:'StatusCode', _0:request.status, _1:request.statusText }});
                 setTimeout(function() { updateQueue(queue,responses); }, 0);
             }
         };

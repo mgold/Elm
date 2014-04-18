@@ -54,7 +54,7 @@ failures = lift (\r -> case r of
 {- The datatype representing failures of an HTTP request, e.g. `Http 404 "Not
 Found"`. If JSON conversion fails, `NoConversion` carries the unconvertable
 string. Requests for `String` or `()` never result in `NoConversion`. -}
-data HttpFailure = Http Int String | NoConversion String
+data HttpFailure = StatusCode Int String | NoConversion String
 type HttpResponse a = Response a HttpFailure
 
 type Request a = {
